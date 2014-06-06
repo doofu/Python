@@ -1,0 +1,10 @@
+{# 子模板，注意父模板的路径 #}
+{% extends "templates_extends/base.html" %}
+
+{% block title %}Future time{% endblock %}
+
+{% block content %}
+<p>In {{ hour_offset }} hour(s), it will be {{ next_time }}.</p>
+<p>{{ message }}</p>
+{% endblock %}
+

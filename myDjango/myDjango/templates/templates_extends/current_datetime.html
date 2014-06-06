@@ -1,0 +1,9 @@
+{# 子模板，注意父模板的路径 #}
+{% extends "templates_extends/base.html" %}
+
+{% block title %}The current time{% endblock %}
+
+{% block content %}
+<p>It is now {{ current_date|date:"Y年m月d日 D" }}.</p>
+<p>{{ message }}</p>
+{% endblock %}

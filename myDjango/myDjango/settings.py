@@ -73,6 +73,13 @@ DATABASES = {
     }
 }
 
+# 设置模板文件所在的目录
+TEMPLATE_DIRS = (
+
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
+
+)
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 

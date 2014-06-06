@@ -5,4 +5,7 @@ encoding//myDjango/templates/templates_extends/hours_ahead.html=UTF-8
 encoding//myDjango/urls.py=UTF-8
 encoding//myDjango/views.py=UTF-8
 encoding//myDjango/wsgi.py=UTF-8
+encoding//testDb/models.py=UTF-8
+encoding//testDb/templates/list_table.html=UTF-8
+encoding//testDb/views.py=UTF-8
 encoding/manage.py=UTF-8

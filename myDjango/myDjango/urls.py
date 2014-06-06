@@ -3,8 +3,11 @@
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
+# 导入myDjango应用的views
 from myDjango.views import hello, current_datetime, hours_ahead, current_datetime1, current_datetime2, current_datetime3
 from myDjango.views import current_datetime4, hours_ahead4
+# 导入testDb应用的views
+from testDb.views import list_table
 
 
 admin.autodiscover()
@@ -23,4 +26,5 @@ urlpatterns = patterns('',
     url(r'^time3/$', current_datetime3),
     url(r'^time4/$', current_datetime4),
     url(r'^time4/plus/(\d{1,2})/$', hours_ahead4),
+    url(r'^list/$', list_table),
 )

@@ -1,0 +1,14 @@
+{# 子模板，注意父模板的路径,在此应用中，能用另一个应用中的模板 #}
+{% extends "templates_extends/base.html" %}
+
+{% block title %}数据库表Nametable{% endblock %}
+
+{% block content %}
+<p>姓名：{{ rec.name }}<br/>
+年龄：{{ rec.age }}<br/>
+薪水：{{ rec.salary }}<br/>
+电话：{{ rec.phonenumber }}<br/>
+邮箱：{{ rec.email }}<br/>
+密码：{{ rec.password }}<br/></p>
+<p>{{ message }}</p>
+{% endblock %}

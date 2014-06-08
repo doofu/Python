@@ -2,10 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/common.css" />
 <meta http-equiv="content-type" content="text/html;charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="../js/phpAjax.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/static/js/phpAjax.js"></script>
 </head>
 <body>
 <div class=div1>
@@ -24,7 +25,8 @@
 		<input type="reset" value="清除"><br>
 		<br><br>
 	</form>
-	<form name="MVC" Method="Post" action="#">
+	<form name="MVC" Method="Post" action="ajaxSearch/">
+	{% csrf_token %}
 		用户姓名：<input type='text' name='username' id="username2" size="30"> 
 		<input type="button" onclick="getPhoneNumberByPost();" value="Post访问方式"> 
 		<input style="border-width: 0; color: red" type="text" id="myres2" size=50><br>

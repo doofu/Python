@@ -49,7 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 在用户用POST方法提交页面信息的时候，有时会遇到CSRF verification failed. Request aborted.错误
-    #'django.middleware.csrf.CsrfResponseMiddleware',
+    #'django.middleware.csrf.CsrfResponseMiddleware', #加入这个中间件 
 )
 
 ROOT_URLCONF = 'myDjango.urls'

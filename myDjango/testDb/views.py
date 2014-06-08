@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from testDb.models import Nametable
 #from django.views.decorators.http import require_http_methods
 from django.template import RequestContext
+from django.http import HttpResponse
 
 # 主菜单
 def menu(request):
@@ -32,3 +33,21 @@ def search(request):
         return render_to_response('html/pythonMySql.html', {'rec': rec,}, context_instance=RequestContext(request))
         #return render_to_response('html/pythonMySql.html', {'rec': rec,})
         
+def pythonAjax(request):
+    return render_to_response('html/pythonAjax.html', context_instance=RequestContext(request))
+        
+def ajaxSearch(request):
+    if request.method == 'GET':
+        return HttpResponse('13300099999')
+    else:
+#        if request.is_ajax() and request.method == 'POST':
+        for key in request.POST:
+            print(key)
+            valuelist = request.POST.getlist(key)
+            print(valuelist)
+        print('at')
+        return HttpResponse('13300099999')#, context_instance=RequestContext(request))
+
+
+
+

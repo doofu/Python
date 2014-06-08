@@ -31,7 +31,7 @@ function getPhoneNumberByGet() {
 		// 解决中文乱码问题的方法2,页面端发出的数据作两次encodeURI,服务端使用String name =
 		// URLDecoder.decode(old,"UTF-8");
 
-		var url = "../control/controler.php?fn=getPhonenumber&mytime="
+		var url = "ajaxSearch?fn=getPhonenumber&mytime="
 				+ new Date() + "&username="
 				+ encodeURI(encodeURI($("username").value));
 
@@ -63,7 +63,6 @@ function chuli() {
 
 // 使用Post方式，验证用户名是否存在
 function getPhoneNumberByPost() {
-
 	myXmlHttpRequest = getXmlHttpObject();
 
 	// 怎么判断创建ok
@@ -73,10 +72,12 @@ function getPhoneNumberByPost() {
 		// 第一个参数表示请求的方式, "get" / "post"
 		// 第二个参数指定url,对哪个页面发出ajax请求(本质仍然是http请求)
 		// 第三个参数表示 true表示使用异步机制,如果false表示不使用异步
-		var url = "../control/controler.php?fn=getPhonenumber";
+		var url = "ajaxSearch?fn=getPhonenumber";
 		var queryString = "mytime=" + new Date() + "&username="
-				+ $("username2").value;
-
+				+ $("username2").value
+				+ "&csrfmiddlewaretoken=" + getCookie('csrftoken');
+//				+ "&csrftoken=" + getCookie('csrftoken');
+alert(queryString);
 		// 打开请求.
 		myXmlHttpRequest.open("post", url, true);
 
@@ -86,7 +87,7 @@ function getPhoneNumberByPost() {
 		// 这句话不能少
 		myXmlHttpRequest.setRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded");
-
+myXmlHttpRequest.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));  
 		// 真的发送请求,如果是get请求则填入 null即可
 		// 如果是post请求，则填入实际的数据
 		myXmlHttpRequest.send(queryString);
@@ -108,4 +109,21 @@ function chuliPost() {
 
 function $(id) {
 	return document.getElementById(id);
+}
+
+//using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

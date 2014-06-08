@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../js/phpJQuery.js"></script>
+</head>
+<body>
+<div class=div1>
+	<H2>MVC JQuery PHP范例程序（返回数据格式为XML、HTML）<br>
+	目录：view、control、model、js<br/>
+	文件：[V]phpJQuery.html、[V]phpJQuery.js、[C]controler.php、[M]NametableManage.class.php、[M]PdoHelper.class.php<br/><br/></H2>
+	<form name="MVC" Method="Post" action="#">
+		用户姓名：<input type='text' onkeyup="getUserByGet();" name='username' id="username" size="30"> 
+		<input type="button" onclick="getUserByGet();" value="Get访问方式" class=button> 
+		<font color="red" size="2"><span id="myres" ></span></font><br>
+		<!-- div style="border-width: 0; color: red" type="text" id="myres"></div><br -->
+		<!-- input style="border-width: 0; color: red" type="text" id="myres" size=50><br -->
+		用户年龄：<input type="text" name="age" id="age"><br> 
+		用户薪水：<input type="text" name="salary" id="salary"><br> 
+		电话号码：<input type="text" name="phonenumber" id="phonenumber"><br> 
+		电子邮件：<input	type="text" name="email" id="email"><br>
+		用户密码：<input type="password" name="password" id="password"><br><br>
+		<input type="button" onclick="addUserByPost();" value="增加" class=button>
+		<!-- input type="submit" value="增加" class=button> -->
+		<input type="reset" value="清除" class=button><br>
+		<br><br>
+	</form>
+	<form name="MVC" Method="Post" action="../control/controler.php?fn=getUser">
+		用户姓名：<input type='text' onkeyup="getUserByPost();" name='username2' id="username2" size="30"> 
+		<input type="button" onclick="getUserByPost();" value="Post访问方式" class=button> 
+		<font color="red" size="2"><span id="myres2" ></span></font><br>
+		用户年龄：<input type="text" name="age2" id="age2"><br> 
+		用户薪水：<input type="text" name="salary2" id="salary2"><br> 
+		电话号码：<input type="text" name="phonenumber2" id="phonenumber2"><br> 
+		电子邮件：<input	type="text" name="email2" id="email2"><br>
+		用户密码：<input type="password" name="password2" id="password2"><br><br>
+		<input type="button" onclick="deleteUserByPost();" value="删除" class=button> 
+		<input type="button" onclick="modifyUserByPost();" value="修改" class=button>
+		<input type="reset" value="清除" class=button><br>
+		<!--input type="submit" value="按钮"> 
+		<input type="reset" value="清除"><br>  -->
+	</form>
+	<br><br>
+	<a href="../index.html">首页</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<!-- meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+< meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT" -->
+<title>Insert title here</title>
+</head>
+<body>
+<div class=div1>
+	<form name="MTV" Method="get" action="">
+		<H2>Python MTV范例程序（通过GET方式访问）<br>
+		目录：testDb、templates、static<br/>
+		文件：[V]views.py、[T]pythonMySql.html、[M]models.py<br/><br/></H2>
+		用户姓名：<input type='text' name='username' id="username" size="30" value={{ rec.name }}> 
+		<font color="red" size="2"><span id="myres" >电话号码：{{ rec.phonenumber }}</span></font><br>
+		<!-- div style="border-width: 0; color: red" type="text" id="myres"></div><br -->
+		<!-- input style="border-width: 0; color: red" type="text" id="myres" size=50><br -->
+		用户年龄：<input type="text" name="age" id="age" value={{ rec.age }}><br> 
+		用户薪水：<input type="text" name="salary" id="salary" value={{ rec.salary }}><br> 
+		电话号码：<input type="text" name="phonenumber" id="phonenumber" value={{ rec.phonenumber }}><br> 
+		电子邮件：<input	type="text" name="email" id="email" value={{ rec.email }}><br>
+		用户密码：<input type="password" name="password" id="password" value={{ rec.password }}><br><br>
+		<!-- input type="button" onclick="addUserByPost();" value="增加" class=button>  -->
+		<input type="submit" value="查询" class=button>
+		<input type="reset" value="清除" class=button><br>
+		<br><br>
+	</form><br/>
+	<form name="MTV" Method="post" action="">
+	{% csrf_token %}
+		<H2>Python MTV范例程序（通过POST方式访问）<br>
+		目录：testDb、templates、static<br/>
+		文件：[V]views.py、[T]pythonMySql.html、[M]models.py<br/><br/></H2>
+		用户姓名：<input type='text' name='username' id="username" size="30" value={{ rec.name }}> 
+		<font color="red" size="2"><span id="myres" >电话号码：{{ rec.phonenumber }}</span></font><br>
+		<!-- div style="border-width: 0; color: red" type="text" id="myres"></div><br -->
+		<!-- input style="border-width: 0; color: red" type="text" id="myres" size=50><br -->
+		用户年龄：<input type="text" name="age" id="age" value={{ rec.age }}><br> 
+		用户薪水：<input type="text" name="salary" id="salary" value={{ rec.salary }}><br> 
+		电话号码：<input type="text" name="phonenumber" id="phonenumber" value={{ rec.phonenumber }}><br> 
+		电子邮件：<input	type="text" name="email" id="email" value={{ rec.email }}><br>
+		用户密码：<input type="password" name="password" id="password" value={{ rec.password }}><br><br>
+		<!-- input type="button" onclick="addUserByPost();" value="增加" class=button>  -->
+		<input type="submit" value="查询" class=button>
+		<input type="reset" value="清除" class=button><br>
+		<br><br>
+	</form>
+	<br><br>
+	<a href="/">首页</a>
+</div>
+</body>
+</html>

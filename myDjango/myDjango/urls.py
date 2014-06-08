@@ -8,7 +8,7 @@ from myDjango.views import hello, current_datetime, hours_ahead, current_datetim
 from myDjango.views import current_datetime4, hours_ahead4
 # 导入testDb应用的views
 from testDb.views import list_table
-
+from testDb.views import menu, search
 
 admin.autodiscover()
 
@@ -27,4 +27,6 @@ urlpatterns = patterns('',
     url(r'^time4/$', current_datetime4),
     url(r'^time4/plus/(\d{1,2})/$', hours_ahead4),
     url(r'^list/$', list_table),
+    url(r'^$', menu),
+    url(r'^search/$', search),
 )

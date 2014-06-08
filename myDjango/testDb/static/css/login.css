@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	background-image: url(../img/background.jpg);
+	background-repeat: no-repeat;
+	color: green;
+}
+
+#divLogin {
+	width: 330px;
+	height: 220px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 180px;
+	border: solid 1px #f90;
+}
+
+#divLogin table {
+	background-color:none;
+	width: 290px;
+	margin: 0px 20px 0px 20px;
+	border-collapse: none;
+}
+
+#divLogin table td {
+	height: 40px;
+	vertical-align: middle;
+}
+
+#divLogin table .inputText {
+	background-color: white;
+	border: solid 1px #f90;
+}
+
+#divLogin table .inputText:hover {
+	background-color: silver;
+}
+
+#divLogin table .inputText:focus {
+	background-color: yellow;
+}
+
+#divLogin table .inputButton  {
+	font-weight: bolder; 
+	color: #fef4e9;
+	background:  #f78d1d;
+	cursor: hand;
+	width: 90px;
+	height: 35px;
+	margin: 0 10px 0 10px;
+	padding: 2px;
+}
+
+#divLogin table .inputButton:hover {
+	background: #f47c20;
+	border: 1px solid #ff6633;
+	color: black;
+}
+
+#divLogin table .inputButton:active {
+	color: red;
+}
+
+
+
+

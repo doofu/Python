@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/login.css" />
+<title>用户登陆</title>
+<script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../js/login.js"></script>
+</head>
+<body onload="initPage()">
+<div id="divLogin">
+<form Method="Post" action="../control/controler.php?fn=login">
+<table>
+<tr><td width=30%>用户名</td><td colspan="2"><input type="text" name="username" class="inputText" id="username"/></td></tr>
+<tr><td>密码</td><td colspan="2"><input type="password" name="password" class="inputText" /></td></tr>
+<tr><td>验证码</td><td width="35%"><input type="text" name ="checkNum" class="inputText" size="6"/></td>
+<td><img src="../model/checkNum.php" onclick="this.src='../model/checkNum.php?aa='+Math.random()"/></td></tr>
+<tr><td>保存用户名</td><td><input type="checkbox" name="checked" value="yes" id="isChecked"></td></tr>
+<tr><td colspan="3" align="center"><input type="submit" value="登陆" class="inputButton" />
+<input type="reset" value="重填" class="inputButton" /></td><tr>
+</table>
+</form>
+<span style='color:white;background-color:red;' id='errMessage'></span>
+</div>
+</body>
+</html>

@@ -4,11 +4,13 @@ function getUserByGet() {
 	// String(old.getBytes("iso8859-1"),"UTF-8");
 	// 解决中文乱码问题的方法2,页面端发出的数据作两次encodeURI,服务端使用String name =
 	// URLDecoder.decode(old,"UTF-8");
-	var url = "../control/controler.php?fn=getUser&username="
-			+ encodeURI(encodeURI($("#username").val()));
-	// var url = "../control/controler.php?fn=getUser&username=" +
+	
+	var url = "jquerySearch?fn=getUser&username="
+		+ encodeURI(encodeURI($("#username").val()));
+		// var url = "../control/controler.php?fn=getUser&username=" +
 	// $("#username").val();
 	url = convertURL(url);
+	
 	$.ajax({
 		type : "get", // 请求方式
 		url : url, // 发送请求地址
@@ -38,10 +40,12 @@ function getUserByGet() {
 function getUserByPost() {
 	$.ajax({
 		type : "post", // 请求方式
-		url : "../control/controler.php?fn=getUser", // 发送请求地址
+		url : "jquerySearch/?fn=getUser", // 发送请求地址
 		dataType : "xml", // 返回数据为xml格式
 		data : { // 发送给数据库的数据
-			username : $("#username2").val()
+			username : $("#username2").val(),
+//			csrfmiddlewaretoken : $.cookie('csrftoken'),	// post方式下，必须传输csrfmiddlewaretoken
+			csrfmiddlewaretoken : getCookie('csrftoken'),	// post方式下，必须传输csrfmiddlewaretoken
 		},
 		// 请求成功后的回调函数
 		success : function(xml) {
@@ -126,4 +130,21 @@ function modifyUserByPost() {
 			$("#myres2").html(data);
 		}
 	});
+}
+
+//使用jQuery，去cookie中的值
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

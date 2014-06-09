@@ -4,8 +4,11 @@ from testDb.models import Nametable
 #from django.views.decorators.http import require_http_methods
 from django.template import RequestContext
 from django.http import HttpResponse
+import urllib.parse
 
-# 主菜单
+#===============================================================================
+# menu：主菜单
+#===============================================================================
 def menu(request):
     return render_to_response('index.html')
 
@@ -15,10 +18,9 @@ def list_table(request):
 #                                                  'email': rec.email, 'password': rec.password, 'message': ' 数据库表内容显示！'})
     return render_to_response('list_table.html', {'rec': rec, 'message': ' 数据库表内容显示！'})
 
-#@require_http_methods(["GET", "POST"])
 def search(request):
     if request.method == 'GET':
-        username = request.GET.get('username', '')
+        username = request.GET.get('username', '')  # 此处为何不需要url解码，中文仍然正常显示？
     else:
         username = request.POST.get('username', '')
     
@@ -35,18 +37,28 @@ def search(request):
         
 def pythonAjax(request):
     return render_to_response('html/pythonAjax.html', context_instance=RequestContext(request))
-        
+
+#===============================================================================
+# ajaxSearch: Ajax后台服务
+#===============================================================================
 def ajaxSearch(request):
     if request.method == 'GET':
-        return HttpResponse('13300099999')
+        username = request.GET.get('username', '')
+        username = urllib.parse.unquote(username)   #解决Get方式下中文乱码问题
     else:
-#        if request.is_ajax() and request.method == 'POST':
-        for key in request.POST:
-            print(key)
-            valuelist = request.POST.getlist(key)
-            print(valuelist)
-        print('at')
-        return HttpResponse('13300099999')#, context_instance=RequestContext(request))
+        username = request.POST.get('username', '')
+   
+    try:
+        if username:       
+            rec = Nametable.objects.get(name=username)
+            phonenumber = username + '的电话为：' + rec.phonenumber
+        else:
+            phonenumber = '未找到'
+    except Exception:
+        phonenumber = '未找到'
+    finally:
+        return HttpResponse(phonenumber)
+
 
 
 

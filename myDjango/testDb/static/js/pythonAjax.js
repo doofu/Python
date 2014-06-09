@@ -72,12 +72,11 @@ function getPhoneNumberByPost() {
 		// 第一个参数表示请求的方式, "get" / "post"
 		// 第二个参数指定url,对哪个页面发出ajax请求(本质仍然是http请求)
 		// 第三个参数表示 true表示使用异步机制,如果false表示不使用异步
-		var url = "ajaxSearch?fn=getPhonenumber";
+		var url = "ajaxSearch/?fn=getPhonenumber";						// 重要：注意，post方式，ajaxSearch后面的"/"一定要有！！
 		var queryString = "mytime=" + new Date() + "&username="
 				+ $("username2").value
-				+ "&csrfmiddlewaretoken=" + getCookie('csrftoken');
-//				+ "&csrftoken=" + getCookie('csrftoken');
-alert(queryString);
+				+ "&csrfmiddlewaretoken=" + getCookie('csrftoken');		// post方式下，必须传输csrfmiddlewaretoken
+
 		// 打开请求.
 		myXmlHttpRequest.open("post", url, true);
 
@@ -87,7 +86,7 @@ alert(queryString);
 		// 这句话不能少
 		myXmlHttpRequest.setRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded");
-myXmlHttpRequest.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));  
+
 		// 真的发送请求,如果是get请求则填入 null即可
 		// 如果是post请求，则填入实际的数据
 		myXmlHttpRequest.send(queryString);
@@ -111,7 +110,7 @@ function $(id) {
 	return document.getElementById(id);
 }
 
-//using jQuery
+// 使用jQuery，去cookie中的值
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {

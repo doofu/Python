@@ -1,10 +1,10 @@
-#from django.shortcuts import render
+# -*- coding: UTF-8 -*-
+
 from django.shortcuts import render_to_response
-from testDb.models import Nametable
-#from django.views.decorators.http import require_http_methods
 from django.template import RequestContext
 from django.http import HttpResponse
 import urllib.parse
+from testDb.models import Nametable
 
 #===============================================================================
 # menu：主菜单

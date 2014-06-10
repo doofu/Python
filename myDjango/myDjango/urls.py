@@ -8,7 +8,7 @@ from myDjango.views import hello, current_datetime, hours_ahead, current_datetim
 from myDjango.views import current_datetime4, hours_ahead4
 # 导入testDb应用的views
 from testDb.views import list_table
-from testDb.views import menu, search, pythonAjax, ajaxSearch, pythonJQuery, jquerySearch
+from testDb.views import menu, search, pythonAjax, ajaxSearch, pythonJQuery, jquerySearch, jqueryManage
 
 admin.autodiscover()
 
@@ -33,4 +33,7 @@ urlpatterns = patterns('',
     url(r'^pythonAjax/ajaxSearch/$', ajaxSearch),
     url(r'^pythonJQuery/$', pythonJQuery),
     url(r'^pythonJQuery/jquerySearch/$', jquerySearch),
+    url(r'^pythonJQuery/jqueryManage/(add|delete|modify)/$', jqueryManage),
+#    url(r'^pythonJQuery/jqueryManage/(delete)/$', jqueryManage),
+#    url(r'^pythonJQuery/jqueryManage/(modify)/$', jqueryManage),
 )

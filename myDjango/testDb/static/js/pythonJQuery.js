@@ -4,11 +4,10 @@ function getUserByGet() {
 	// String(old.getBytes("iso8859-1"),"UTF-8");
 	// 解决中文乱码问题的方法2,页面端发出的数据作两次encodeURI,服务端使用String name =
 	// URLDecoder.decode(old,"UTF-8");
-	
 	var url = "jquerySearch?fn=getUser&username="
 		+ encodeURI(encodeURI($("#username").val()));
-		// var url = "../control/controler.php?fn=getUser&username=" +
-	// $("#username").val();
+		// var url = "jquerySearch?fn=getUser&username=" +
+		// $("#username").val();
 	url = convertURL(url);
 	
 	$.ajax({
@@ -40,7 +39,7 @@ function getUserByGet() {
 function getUserByPost() {
 	$.ajax({
 		type : "post", // 请求方式
-		url : "jquerySearch/?fn=getUser", // 发送请求地址
+		url : "jquerySearch/", // 发送请求地址
 		dataType : "xml", // 返回数据为xml格式
 		data : { // 发送给数据库的数据
 			username : $("#username2").val(),
@@ -83,7 +82,7 @@ function convertURL(url) {
 function addUserByPost() {
 	$.ajax({
 		type : "post", // 请求方式
-		url : "../control/controler.php?fn=addUser", // 发送请求地址
+		url : "jqueryManage/add/", // 发送请求地址
 		data : { // 发送给数据库的数据
 			username : $("#username").val(),
 			age : $("#age").val(),
@@ -91,6 +90,7 @@ function addUserByPost() {
 			phonenumber : $("#phonenumber").val(),
 			email : $("#email").val(),
 			password : $("#password").val(),
+			csrfmiddlewaretoken : getCookie('csrftoken'),	// post方式下，必须传输csrfmiddlewaretoken
 		},
 		// 请求成功后的回调函数有两个参数
 		success : function(data, textStatus) {
@@ -102,9 +102,10 @@ function addUserByPost() {
 function deleteUserByPost() {
 	$.ajax({
 		type : "post", // 请求方式
-		url : "../control/controler.php?fn=deleteUser", // 发送请求地址
+		url : "jqueryManage/delete/", // 发送请求地址
 		data : { // 发送给数据库的数据
-			username : $("#username2").val()
+			username : $("#username2").val(),
+			csrfmiddlewaretoken : getCookie('csrftoken'),	// post方式下，必须传输csrfmiddlewaretoken
 		},
 		// 请求成功后的回调函数有两个参数
 		success : function(data, textStatus) {
@@ -116,7 +117,7 @@ function deleteUserByPost() {
 function modifyUserByPost() {
 	$.ajax({
 		type : "post", // 请求方式
-		url : "../control/controler.php?fn=modifyUser", // 发送请求地址
+		url : "jqueryManage/modify/", // 发送请求地址
 		data : { // 发送给数据库的数据
 			username : $("#username2").val(),
 			age : $("#age2").val(),
@@ -124,6 +125,7 @@ function modifyUserByPost() {
 			phonenumber : $("#phonenumber2").val(),
 			email : $("#email2").val(),
 			password : $("#password2").val(),
+			csrfmiddlewaretoken : getCookie('csrftoken'),	// post方式下，必须传输csrfmiddlewaretoken
 		},
 		// 请求成功后的回调函数有两个参数
 		success : function(data, textStatus) {

@@ -82,7 +82,72 @@ def jquerySearch(request):
     except Exception:
         xml = '<user><name></name><age></age><salary></salary><phonenumber></phonenumber><email></email><password></password></user>'
     finally:
+        print(xml)
         return HttpResponse(xml)
+    
+#===============================================================================
+# jqueryManage 数据库增删改
+#===============================================================================
+def jqueryManage(request, op):
+    if op == 'add':
+        try:
+            username = request.POST.get('username', '')
+
+            if not(Nametable.objects.filter(name=username)):    # 当为找到时，filter不抛出异常，返回空列表
+                age = int(request.POST.get('age', '0'))
+                salary = float(request.POST.get('salary', '0.0'))
+                phonenumber = request.POST.get('phonenumber', '')
+                email = request.POST.get('email', '')
+                password = request.POST.get('password', '')
+                Nametable.objects.all()
+                rec = Nametable(name=username, age=age, salary=salary, phonenumber=phonenumber, email=email, password=password)
+                rec.save()
+                ret = '增加成功！'
+            else:
+                ret = username + '已存在！！'
+        except Exception as e:
+            print(e)
+            ret = '增加失败！！'
+        finally:
+            return HttpResponse(ret)
+    elif op == 'delete':
+        try:
+            username = request.POST.get('username', '')
+
+            rec = Nametable.objects.filter(name=username)    # 当为找到时，filter不抛出异常，返回空列表
+            if rec:
+                rec.delete()
+                ret = '删除成功！'
+            else:
+                ret = '没有可删除的记录！！'  
+        except Exception as e:
+            ret = '删除失败！！'
+        finally:
+            return HttpResponse(ret)  
+    elif op == 'modify':
+        try:
+            username = request.POST.get('username', '')
+    
+            if Nametable.objects.filter(name=username): 
+                age = int(request.POST.get('age', '0'))
+                salary = float(request.POST.get('salary', '0.0'))
+                phonenumber = request.POST.get('phonenumber', '')
+                email = request.POST.get('email', '')
+                password = request.POST.get('password', '')
+                Nametable.objects.all()
+                rec = Nametable(name=username, age=age, salary=salary, phonenumber=phonenumber, email=email, password=password)
+                rec.save()
+                ret = '修改成功！'
+            else:
+                ret = username + '不存在！！'
+        except Exception as e:
+            print(e)
+            ret = '修改失败！！'
+        finally:
+            return HttpResponse(ret)
 
 
-
+        
+        
+        
+        

@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse
 import urllib.parse
 from testDb.models import Nametable
+from testDb.PagingToolbar import PagingToolbar
 
 #===============================================================================
 # menu：主菜单
@@ -13,6 +14,11 @@ def menu(request):
     return render_to_response('index.html')
 
 def list_table(request):
+    print('request.get_full_path: ' + request.get_full_path())
+    #print('request.path: ' + request.path())
+    print('request.get_host: ' + request.get_host())
+    print(type(request))
+
     rec = Nametable.objects.get(name='add18')
 #    return render_to_response('list_table.html', {'name': rec.name, 'age': rec.age, 'salary': rec.salary, 'phonenumber': rec.phonenumber, 
 #                                                  'email': rec.email, 'password': rec.password, 'message': ' 数据库表内容显示！'})
@@ -23,7 +29,7 @@ def search(request):
         username = request.GET.get('username', '')  # 此处为何不需要url解码，中文仍然正常显示？
     else:
         username = request.POST.get('username', '')
-    
+
     try:
         if username:       
             rec = Nametable.objects.get(name=username)
@@ -146,8 +152,26 @@ def jqueryManage(request, op):
         finally:
             return HttpResponse(ret)
 
-
-        
-        
+def paging(request):
+    data = {
+            'request': request,
+            'total_rows': 200,        # 总行数
+            'method': 'get',          #导航方式：get
+            'list_rows': 10,          #每页显示的行数，默认为15
+            }
+    page = PagingToolbar(data)
+    html = page.show(1)
+    html += '<br/><br/>' + page.show(2)
+    data = {
+        'request': request,
+        'total_rows': 200,              # 总行数
+        'method': 'ajax',               # 导航方式：ajax
+        'ajax_func_name': 'ajaxfun',    # 使用Ajax或JQuery时，调用的javascript函数的名称
+        'list_rows': 10,                # 每页显示的行数，默认为15
+        }
+    page = PagingToolbar(data)
+    html += '<br/><br/>' + page.show(3)
+    html += '<br/><br/>' + page.show(4)
+    return HttpResponse(html)    
         
         

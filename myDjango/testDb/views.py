@@ -202,4 +202,68 @@ def pagingDisplay(request):
     
     return render_to_response('html/pythonPagingDisplay.html', {'records': records, 'total_rows': total_rows, 'pagingToolbar': pagingToolbar.show(1)})
     
+#===============================================================================
+# pagingDisplayJQueryPage JQuery分页显示页面显示
+#===============================================================================
+def pagingDisplayJQueryPage(request):
+    now_page = int(request.GET.get('p', '1'))
+    total_rows = Nametable.objects.count()
+    list_rows = 10
+    rowsCountList = range(0, list_rows)
+    colsCountList = range(0, 6)
+        
+    data = {
+        'request': request,
+        'total_rows': total_rows,           # 总行数
+        'now_page': now_page,               # 当前页
+        'method': 'ajax', 'getPagingData'   # 导航方式：get
+        'ajax_func_name': 'ajaxfun',        # 使用Ajax或JQuery时，调用的javascript函数的名称
+        'page_name': 'p',
+        'list_rows': list_rows,             #每页显示的行数，默认为15
+        }
+    pagingToolbar = PagingToolbar(data)
+    
+    return render_to_response('html/pythonPagingDisplayJQuery.html', {'list_rows': list_rows, 'total_rows': total_rows, 'rowsCountList': rowsCountList, 'colsCountList': colsCountList, 'pagingToolbar': pagingToolbar.show(4)})
+    
+#===============================================================================
+# pagingDisplayJQuery JQuery访问服务，得到查询到的数据，以xml形式返回
+#===============================================================================
+def pagingDisplayJQuery(request):
+    try:
+        page_now = int(request.POST.get('pageNow', '1'))
+        list_rows = int(request.POST.get('listRows', '1'))
+    
+        records = Nametable.objects.all()[(page_now - 1) * list_rows : page_now * list_rows]
+    except Exception as e:
+        print(e)
+        
+    xml = '<users>'
+    for rec in records:
+        xml +='<user><name>' + rec.name + '</name><age>' + str(rec.age) + '</age><salary>' + str(rec.salary) + '</salary>'
+        xml += '<phonenumber>' + rec.phonenumber + '</phonenumber><email>' + rec.email + '</email>'
+        xml += '<password>' + rec.password + '</password></user>'
+    xml += '</users>'
+
+    return HttpResponse(xml)
+        
+#===============================================================================
+# showPagingToolbar 分页工具条显示服务
+#===============================================================================
+def showPagingToolbar(request):
+    now_page = int(request.POST.get('pageNow', '1'))
+    total_rows = int(request.POST.get('totalRows', '1'))
+    list_rows = int(request.POST.get('listRows', '1'))
+        
+    data = {
+        'request': request,
+        'total_rows': total_rows,           # 总行数
+        'now_page': now_page,               # 当前页
+        'method': 'ajax', 'getPagingData'   # 导航方式：get
+        'ajax_func_name': 'ajaxfun',        # 使用Ajax或JQuery时，调用的javascript函数的名称
+        'page_name': 'p',
+        'list_rows': list_rows,             #每页显示的行数，默认为15
+        }
+    pagingToolbar = PagingToolbar(data)
+    
+    return HttpResponse(pagingToolbar.show(4))
     

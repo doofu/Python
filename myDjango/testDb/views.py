@@ -152,6 +152,9 @@ def jqueryManage(request, op):
         finally:
             return HttpResponse(ret)
 
+#===============================================================================
+# paging 演示分页类
+#===============================================================================
 def paging(request):
     data = {
             'request': request,
@@ -160,8 +163,8 @@ def paging(request):
             'list_rows': 10,          #每页显示的行数，默认为15
             }
     page = PagingToolbar(data)
-    html = page.show(1)
-    html += '<br/><br/>' + page.show(2)
+    get1 = page.show(1)
+    get2 = page.show(2)
     data = {
         'request': request,
         'total_rows': 200,              # 总行数
@@ -170,8 +173,33 @@ def paging(request):
         'list_rows': 10,                # 每页显示的行数，默认为15
         }
     page = PagingToolbar(data)
-    html += '<br/><br/>' + page.show(3)
-    html += '<br/><br/>' + page.show(4)
-    return HttpResponse(html)    
+    ajax3 = '<br/><br/>' + page.show(3)
+    ajax4 = '<br/><br/>' + page.show(4)
+    
+    return render_to_response('html/pagingToolbarDemo.html', {'get1': get1, 'get2': get2, 'ajax3': ajax3, 'ajax4': ajax4})
         
-        
+#===============================================================================
+# pagingDisplay 用分页类采用Get方式分页显示数据库表
+#===============================================================================
+def pagingDisplay(request):
+    try:
+        page_now = int(request.GET.get('p', '1'))
+        total_rows = Nametable.objects.count()
+        list_rows = 10
+    
+        records = Nametable.objects.all()[(page_now - 1) * list_rows : page_now * list_rows]
+    except Exception as e:
+        print(e)
+    
+    data = {
+        'request': request,
+        'total_rows': total_rows,       # 总行数
+        'method': 'get',                #导航方式：get
+        'page_name': 'p',
+        'list_rows': list_rows,         #每页显示的行数，默认为15
+        }
+    pagingToolbar = PagingToolbar(data)
+    
+    return render_to_response('html/pythonPagingDisplay.html', {'records': records, 'total_rows': total_rows, 'pagingToolbar': pagingToolbar.show(1)})
+    
+    

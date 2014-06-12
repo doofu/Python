@@ -61,9 +61,7 @@ class PagingToolbar:
 	# @return 	string	
 	#==============================================================================
 	def _get_link(self, page, text):
-		print(self.method)
 		if self.method == 'ajax' :
-			print('enter ajax')
 			parameter = ''
 			if self.parameter:
 				parameter = ',' + self.parameter
@@ -260,7 +258,8 @@ class PagingToolbar:
 		if self.total_pages != 1:
 			ret += self.up_page ( '<' )
 
-			for i in range(1, self.total_pages + 1):											
+			i = 1
+			while i <= self.total_pages:
 				if i == self.now_page:
 					ret += '<a class="now_page">' + str(i) + '</a>\n'
 				else:
@@ -272,6 +271,7 @@ class PagingToolbar:
 							ret += "<span>...</span>\n"
 							i = self.total_pages
 						ret += self._get_link ( i, str(i) ) + "\n"
+				i += 1
 			ret += self.down_page ( '>' )
 			
 		return ret

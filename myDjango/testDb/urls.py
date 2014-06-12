@@ -5,7 +5,7 @@ from django.conf.urls import patterns, url
 # 导入testDb应用的views
 from testDb.views import list_table
 from testDb.views import search, pythonAjax, ajaxSearch, pythonJQuery, jquerySearch, jqueryManage
-from testDb.views import paging
+from testDb.views import paging, pagingDisplay
 
 urlpatterns = patterns('',
     url(r'^list/$', list_table),
@@ -19,4 +19,5 @@ urlpatterns = patterns('',
 #    url(r'^pythonJQuery/jqueryManage/(delete)/$', jqueryManage),
 #    url(r'^pythonJQuery/jqueryManage/(modify)/$', jqueryManage),
     url(r'^paging/$', paging),
+    url(r'^pagingDisplay/$', pagingDisplay),
 )

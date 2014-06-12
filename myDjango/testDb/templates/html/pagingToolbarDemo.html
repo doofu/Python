@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+<body><div class=div1>
+<H2>演示分页类PagingToolbar<br>
+目录：testDb、template、static<br/>
+文件：[V]views.py、[T]pagingToolbarDemo.html、[M]models.py、[类]PagingToolbar.py<br/><br/></H2>
+<p>get 方式一</p>
+{% autoescape off %}<!-- 把默认的 转义功能关闭，如实显示html代码 -->
+{{ get1 }}
+<p>get 方式二</p>
+{{ get2 }}
+<p>ajax 方式三</p>
+{{ ajax3 }}
+<p>]ajax 方式四</p>
+{{ ajax4 }}
+{% endautoescape %}<!-- 结束 -->
+<br><br>
+<a href="/">首页</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+</head>
+<body><div class=div1>
+<H2>演示数据库表分页演示<br>
+目录：testDb、template、static<br/>
+文件：[V]views.py、[T]pythonPagingDisplay.html、[M]models.py、pagingToolbar.py<br/><br/></H2>
+
+ <table>
+<!-- 显示表头 -->
+<th width=25%>姓名</th>
+<th width=10%>年龄</th>
+<th width=10%>薪水</th>
+<th width=20%>电话</th>
+<th width=20%>电子邮件</th>
+<th>密码</th>
+
+<!-- 显示当前页的表体 -->
+{% for rec in records %}
+	<tr>
+	<td>{{ rec.name }}</td>
+	<td>{{ rec.age }}</td>
+	<td>{{ rec.salary }}</td>
+	<td>{{ rec.phonenumber }}</td>
+	<td>{{ rec.email }}</td>
+	<td>{{ rec.password }}</td>
+	</tr>
+{% endfor %} 
+</table>
+
+<div id="pagingToolbar">
+<!-- 以方式一显示导航条 -->
+{% autoescape off %}<!-- 把默认的 转义功能关闭，如实显示html代码 -->
+{{ pagingToolbar }}
+{% endautoescape %}<!-- 结束 -->
+</div>
+
+<div><br/><br/></div>
+<a href="/">首页</a>
+
+</div></body>
+</html>

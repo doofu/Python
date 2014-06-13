@@ -253,17 +253,18 @@ def showPagingToolbar(request):
     now_page = int(request.POST.get('pageNow', '1'))
     total_rows = int(request.POST.get('totalRows', '1'))
     list_rows = int(request.POST.get('listRows', '1'))
-        
+
     data = {
         'request': request,
-        'total_rows': total_rows,           # 总行数
-        'now_page': now_page,               # 当前页
-        'method': 'ajax', 'getPagingData'   # 导航方式：get
-        'ajax_func_name': 'ajaxfun',        # 使用Ajax或JQuery时，调用的javascript函数的名称
-        'page_name': 'p',
-        'list_rows': list_rows,             #每页显示的行数，默认为15
+        'total_rows': total_rows,               # 总行数
+        'now_page': now_page,                   # 当前页
+        'method': 'ajax',                       # 导航方式：get
+        'ajax_func_name': 'getPagingData',      # 使用Ajax或JQuery时，调用的javascript函数的名称
+        'parameter': str(list_rows) + ',' + str(total_rows),    # 自动调用javascript函数：ajax_func_name(当前页, 参数1, 参数2, ..., 参数n);
+        'page_name': 'p', 
+        'list_rows': list_rows,                 #每页显示的行数，默认为15
         }
     pagingToolbar = PagingToolbar(data)
-    
+
     return HttpResponse(pagingToolbar.show(4))
     

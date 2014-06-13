@@ -7,7 +7,7 @@ function getPagingData(pageNow, listRows, totalRows) {
 	// 显示表格数据
 	$.ajax({
 		type : "post", // 请求方式
-		url : "pagingDisplayJQuery/pagingDisplayJQuery/", // 发送请求地址
+		url : "pagingDisplayJQuery/", // 发送请求地址
 		dataType : "xml", // 返回数据为xml格式
 		data : { // 发送给数据库的数据
 			fn : "getPagingData",
@@ -59,7 +59,7 @@ function getPagingData(pageNow, listRows, totalRows) {
 function showPagingToolbar(pageNow, listRows, totalRows){  
 	$.ajax({
 		type : "post", // 请求方式
-		url : "pagingDisplayJQuery/showPagingToolbar/", // 发送请求地址
+		url : "showPagingToolbar/", // 发送请求地址
 		dataType : "html", // 返回数据为html格式
 		data : { // 发送给数据库的数据
 			fn : "getPagingToolBar",
@@ -82,4 +82,21 @@ function afterLoad(pageNow, listRows, totalRows){
 	if(s=="complete"){
 		getPagingData(pageNow, listRows, totalRows);
 	}
+}
+
+//使用jQuery，去cookie中的值
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

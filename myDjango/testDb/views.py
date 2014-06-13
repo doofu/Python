@@ -2,16 +2,55 @@
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import urllib.parse
 from testDb.models import Nametable
 from testDb.PagingToolbar import PagingToolbar
 
 #===============================================================================
+# login 用户登录
+#===============================================================================
+def login(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    
+    try:
+        response = HttpResponseRedirect('/')
+        
+        Nametable.objects.get(name=username, password=password)
+        request.session['username'] = username          # 验证正确，设置session的username值
+        
+        # 判断是否选中保存用户名，并将是否选中状态保存到cookie中。如果选中，则在cookie中保存用户名，否则删除原来保存的用户名
+        if request.POST.get('checked', ''):
+            response.set_cookie('checked', 'checked')
+            response.set_cookie('username', username)
+        else:
+            response.set_cookie('checked', '')
+            response.set_cookie('username', '')
+    except Exception:
+        pass#
+    finally:
+        if request.session.get('username', ''):         # 如果验证已通过，自动重定向为主菜单
+            return response
+        else:                                           # 否则进入登录界面
+            return render_to_response('login.html', context_instance=RequestContext(request))
+
+#===============================================================================
+# logout 用户登出
+#===============================================================================
+def logout(request):
+    del request.session['username']
+    
+    return HttpResponseRedirect('/login/')
+
+#===============================================================================
 # menu：主菜单
 #===============================================================================
 def menu(request):
-    return render_to_response('index.html')
+    if not request.session.get('username', ''):
+        return HttpResponseRedirect('/login/')
+    else:
+        return render_to_response('index.html', context_instance=RequestContext(request))
 
 def list_table(request):
     print('request.get_full_path: ' + request.get_full_path())

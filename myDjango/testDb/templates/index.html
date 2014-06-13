@@ -8,6 +8,10 @@
 <body>
 <div class=div1>
 <H1>Django</H1>
+<form name="MTV" Method="Post" action="#">
+{% csrf_token %}<!-- post方式，必须由此标志，隐含上送csrfmiddlewaretoken信息（cookie中的csrftoken的键值） -->
+</form>
+
 <ul>
 <li><a href="time">演示时间</a>&nbsp
 <a href="time1">1</a>&nbsp
@@ -23,6 +27,7 @@
 <li><a href="testdb/paging">演示分页类PagingToolbar</a></li>
 <li><a href="testdb/pagingDisplay">演示分页显示数据库表</a></li>
 <li><a href="testdb/pagingDisplayJQuery">演示分页显示数据库表 JQuery</a></li>
+<li><a href="testdb/logout">登出</a></li>
 </ul>
 </div>
 </body>

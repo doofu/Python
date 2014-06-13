@@ -6,13 +6,16 @@ from django.contrib import admin
 # 导入myDjango应用的views
 from myDjango.views import hello, current_datetime, hours_ahead, current_datetime1, current_datetime2, current_datetime3
 from myDjango.views import current_datetime4, hours_ahead4
+
 # 导入testDb应用的views
-from testDb.views import menu
+from testDb.views import login, menu
 from testDb import urls
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    # 登录界面
+    url(r'^login/$', login),
     # 主菜单
     url(r'^$', menu),
     # myDjango应用的url

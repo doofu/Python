@@ -207,17 +207,11 @@ class PagingToolbar:
 		if (self.total_rows < 1):
 			return ''
 		
-		if param == 1:
-			return self.show_1()
-		elif param == 2:
-			return self.show_2()
-		elif param == 3:
-			return self.show_3()
-		elif param == 4:
-			return self.show_4()
-		else:
-			return ''
+		# python中没有switch语句，可以用字典，实现switch
+		show = {1: self.show_1, 2: self.show_2, 3: self.show_3, 4: self.show_4}
 		
+		return show.get(param)()
+	
 	#==============================================================================
 	# show_1 方式一
 	#==============================================================================

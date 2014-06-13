@@ -6,6 +6,7 @@ from django.conf.urls import patterns, url
 from testDb.views import list_table
 from testDb.views import search, pythonAjax, ajaxSearch, pythonJQuery, jquerySearch, jqueryManage
 from testDb.views import paging, pagingDisplay, pagingDisplayJQueryPage, pagingDisplayJQuery, showPagingToolbar
+from testDb.views import logout
 
 urlpatterns = patterns('',
     url(r'^list/$', list_table),
@@ -23,5 +24,6 @@ urlpatterns = patterns('',
     url(r'^pagingDisplayJQuery/$', pagingDisplayJQueryPage),
     url(r'^pagingDisplayJQuery/pagingDisplayJQuery/$', pagingDisplayJQuery),
     url(r'^pagingDisplayJQuery/showPagingToolbar/$', showPagingToolbar),
+    url(r'^logout/$', logout),
     
 )

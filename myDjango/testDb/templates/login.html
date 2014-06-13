@@ -2,14 +2,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="../css/login.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/login.css" />
 <title>用户登陆</title>
-<script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="../js/login.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/static/js/login.js"></script>
 </head>
 <body onload="initPage()">
 <div id="divLogin">
-<form Method="Post" action="../control/controler.php?fn=login">
+<form Method="Post" action="/login/">
+{% csrf_token %}<!-- post方式，必须由此标志，隐含上送csrfmiddlewaretoken信息（cookie中的csrftoken的键值） -->
 <table>
 <tr><td width=30%>用户名</td><td colspan="2"><input type="text" name="username" class="inputText" id="username"/></td></tr>
 <tr><td>密码</td><td colspan="2"><input type="password" name="password" class="inputText" /></td></tr>

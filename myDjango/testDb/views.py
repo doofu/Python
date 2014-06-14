@@ -117,11 +117,14 @@ def jquerySearch(request):
     else:
         username = request.POST.get('username', '')
     try:
-        if username:       
+        if username:
+            # 处理数据库空值 
+            pn = lambda x : x if x else '' 
+                 
             rec = Nametable.objects.get(name=username)
-            xml='<user><name>' + rec.name + '</name><age>' + str(rec.age) + '</age><salary>' + str(rec.salary) + '</salary>'
-            xml = xml + '<phonenumber>' + rec.phonenumber + '</phonenumber><email>' + rec.email + '</email>'
-            xml = xml + '<password>' + rec.password + '</password></user>'
+            xml='<user><name>' + pn(rec.name) + '</name><age>' + str(pn(rec.age)) + '</age><salary>' + str(pn(rec.salary)) + '</salary>'
+            xml = xml + '<phonenumber>' + pn(rec.phonenumber) + '</phonenumber><email>' + pn(rec.email) + '</email>'
+            xml = xml + '<password>' + pn(rec.password) + '</password></user>'
         else:
             xml = '<user><name></name><age></age><salary></salary><phonenumber></phonenumber><email></email><password></password></user>'
     except Exception:
@@ -275,12 +278,14 @@ def pagingDisplayJQuery(request):
         records = Nametable.objects.all()[(page_now - 1) * list_rows : page_now * list_rows]
     except Exception as e:
         print(e)
-        
+ 
+    # 处理数据库空值 
+    pn = lambda x : x if x else ''        
     xml = '<users>'
     for rec in records:
-        xml +='<user><name>' + rec.name + '</name><age>' + str(rec.age) + '</age><salary>' + str(rec.salary) + '</salary>'
-        xml += '<phonenumber>' + rec.phonenumber + '</phonenumber><email>' + rec.email + '</email>'
-        xml += '<password>' + rec.password + '</password></user>'
+        xml +='<user><name>' + pn(rec.name) + '</name><age>' + str(pn(rec.age)) + '</age><salary>' + str(pn(rec.salary)) + '</salary>'
+        xml += '<phonenumber>' + pn(rec.phonenumber) + '</phonenumber><email>' + pn(rec.email) + '</email>'
+        xml += '<password>' + pn(rec.password) + '</password></user>'
     xml += '</users>'
 
     return HttpResponse(xml)

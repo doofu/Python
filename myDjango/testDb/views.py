@@ -48,14 +48,9 @@ def login(request):
 #===============================================================================
 def checkNum(request):
     validateCode = ValidateCode()
-    request.session['checkNum'] = validateCode.getCode()
     
-    validateCode.doimg()
-    # 如果每次生成验证码，都要先保存生成的图片，再显示到页面。这么做让人太不能接受了。
-    # 这个时候，我们需要使用python内置的io模块（python2为StringIO或cStringIO模块)，
-    # 它有着类似file对象的行为，但是它操作的是内存文件。
-    #mstream = io.BytesIO()
-    #img.save(mstream, "GIF") 
+    validateCode.createCheckNum()
+    request.session['checkNum'] = validateCode.getCode()
 
     return HttpResponse(validateCode.toPicBuffer(), 'image/gif')
 

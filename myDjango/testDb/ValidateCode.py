@@ -3,25 +3,38 @@
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import io
+import os
 
 class ValidateCode:
-    charset = 'abcdefghkmnprstuvwxyzABCDEFGHKMNPRSTUVWXYZ23456789'    #随机因子
-    code = ''                       # 验证码
+    charset = ''                    #随机因子
     codelen = 4                     # 验证码长度
     width = 90  #130                # 宽度
     height = 30 #50                 # 高度
-    img = ''                        # 图形资源句柄
-    font = 'c:/elephant.ttf'           # 指定的字体
+    font = ''                       # 指定的字体
     fontsize = 18                   # 指定字体大小
-    #fontcolor = (0, 0, 0)           # 指定字体颜色
-
     mode = "RGB"
+
+    code = ''                       # 验证码
+    img = ''                        # 图形资源句柄
+    #fontcolor = (0, 0, 0)           # 指定字体颜色
     bg_color = (255, 255, 255)
 
     #构造方法初始化
-    def __init__(self):
-        self.createCode()
-
+    def __init__(self, charset = 'abcdefghkmnprstuvwxyzABCDEFGHKMNPRSTUVWXYZ23456789',    #随机因子
+                        codelen = 4,
+                        width = 90,
+                        height = 30,
+                        font = '\\font\\elephant.ttf',
+                        fontsize = 18,
+                        mode = 'RGB'):
+        self.charset = charset
+        self.codelen = codelen
+        self.width = width
+        self.height = height
+        # 获得字体文件elephant.ttf的绝对路径
+        self.font = os.path.dirname(__file__) + font
+        self.fontsize = fontsize
+        self.mode = mode
 
     #生成随机码
     def createCode(self):
@@ -77,7 +90,7 @@ class ValidateCode:
                     color = (random.randrange(0, 55), random.randrange(0, 55), random.randrange(0, 55))
                     self.draw.point((w, h), fill=color) #(0, 0, 0))
                     
-    def pre(self):
+    def warpPic(self):
         # 图形扭曲参数
         params = [1 - float(random.randint(1, 2)) / 100,
             0,
@@ -93,8 +106,8 @@ class ValidateCode:
         self.img = self.img.filter(ImageFilter.EDGE_ENHANCE_MORE) # 滤镜，边界加强（阈值更大）
  
     # 将图像保存到文件中
-    def save(self):
-        self.img.save("c:/t.gif", "GIF")
+    def saveToFile(self, fileName):
+        self.img.save(fileName, "GIF")
         
     def toPicBuffer(self):
         # 如果每次生成验证码，都要先保存生成的图片，再显示到页面。这么做让人太不能接受了。
@@ -110,12 +123,14 @@ class ValidateCode:
 #        return self.code.lower()
         return self.code        # 区分大小写
 
-    def doimg(self):
+    def createCheckNum(self):
+        self.createCode()
+        
         self.createBg()
         self.createLine()
 #        #self.createSnow()
         self.createPoints()
         self.createFont()
-        self.pre()
+        self.warpPic()
         
         return self.img

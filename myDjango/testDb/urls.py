@@ -24,6 +24,5 @@ urlpatterns = patterns('',
     url(r'^pagingDisplayJQuery/$', pagingDisplayJQueryPage),
     url(r'^pagingDisplayJQuery/pagingDisplayJQuery/$', pagingDisplayJQuery),
     url(r'^pagingDisplayJQuery/showPagingToolbar/$', showPagingToolbar),
-    url(r'^logout/$', logout),
-    
+    url(r'^logout/$', logout),    
 )

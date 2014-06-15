@@ -8,7 +8,7 @@ from myDjango.views import hello, current_datetime, hours_ahead, current_datetim
 from myDjango.views import current_datetime4, hours_ahead4
 
 # 导入testDb应用的views
-from testDb.views import login, menu
+from testDb.views import login, checkNum, menu
 from testDb import urls
 
 admin.autodiscover()
@@ -16,6 +16,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # 登录界面
     url(r'^login/$', login),
+    url(r'^checkNum/$', checkNum),
+
     # 主菜单
     url(r'^$', menu),
     # myDjango应用的url

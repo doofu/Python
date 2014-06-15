@@ -6,13 +6,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 import urllib.parse
 from testDb.models import Nametable
 from testDb.PagingToolbar import PagingToolbar
+from testDb.ValidateCode import ValidateCode
+import io
 
 #===============================================================================
 # login 用户登录
 #===============================================================================
 def login(request):
+    if request.POST.get('checkNum', '') != request.session.get(('checkNum'), ''):
+        errMessage = '验证码不正确' if request.POST.get('checkNum', '') else ''
+        return render_to_response('login.html', {'errMessage': errMessage}, context_instance=RequestContext(request))
+    
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
+    errMessage = ''
     
     try:
         response = HttpResponseRedirect('/')
@@ -28,12 +35,29 @@ def login(request):
             response.set_cookie('checked', '')
             response.set_cookie('username', '')
     except Exception:
+        errMessage = '用户名不存在或密码不正确！'
         pass#
     finally:
         if request.session.get('username', ''):         # 如果验证已通过，自动重定向为主菜单
             return response
         else:                                           # 否则进入登录界面
-            return render_to_response('login.html', context_instance=RequestContext(request))
+            return render_to_response('login.html', {'errMessage': errMessage}, context_instance=RequestContext(request))
+
+#===============================================================================
+# checkNum 验证效验码
+#===============================================================================
+def checkNum(request):
+    validateCode = ValidateCode()
+    request.session['checkNum'] = validateCode.getCode()
+    
+    validateCode.doimg()
+    # 如果每次生成验证码，都要先保存生成的图片，再显示到页面。这么做让人太不能接受了。
+    # 这个时候，我们需要使用python内置的io模块（python2为StringIO或cStringIO模块)，
+    # 它有着类似file对象的行为，但是它操作的是内存文件。
+    #mstream = io.BytesIO()
+    #img.save(mstream, "GIF") 
+
+    return HttpResponse(validateCode.toPicBuffer(), 'image/gif')
 
 #===============================================================================
 # logout 用户登出

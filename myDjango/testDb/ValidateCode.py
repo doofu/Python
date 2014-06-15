@@ -2,6 +2,7 @@
 #coding=utf-8
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import io
 
 class ValidateCode:
     charset = 'abcdefghkmnprstuvwxyzABCDEFGHKMNPRSTUVWXYZ23456789'    #随机因子
@@ -10,7 +11,7 @@ class ValidateCode:
     width = 90  #130                # 宽度
     height = 30 #50                 # 高度
     img = ''                        # 图形资源句柄
-    font = 'elephant.ttf'           # 指定的字体
+    font = 'c:/elephant.ttf'           # 指定的字体
     fontsize = 18                   # 指定字体大小
     #fontcolor = (0, 0, 0)           # 指定字体颜色
 
@@ -93,7 +94,16 @@ class ValidateCode:
  
     # 将图像保存到文件中
     def save(self):
-        self.img.save("t.gif", "GIF")
+        self.img.save("c:/t.gif", "GIF")
+        
+    def toPicBuffer(self):
+        # 如果每次生成验证码，都要先保存生成的图片，再显示到页面。这么做让人太不能接受了。
+        # 这个时候，我们需要使用python内置的io模块（python2为StringIO或cStringIO模块)，
+        # 它有着类似file对象的行为，但是它操作的是内存文件。
+        mstream = io.BytesIO()
+        self.img.save(mstream, "GIF") 
+        
+        return mstream.getvalue()
 
     #获取验证码
     def getCode(self):
@@ -103,9 +113,9 @@ class ValidateCode:
     def doimg(self):
         self.createBg()
         self.createLine()
-        #self.createSnow()
+#        #self.createSnow()
         self.createPoints()
         self.createFont()
         self.pre()
         
-        return self.img.convert()
+        return self.img

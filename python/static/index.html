@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+<title>Python Wsgi</title>
+</head>
+<body>
+<div class=div1>
+<H1>Python Wsgi</H1>
+<ul>
+<li><a href="/hello.py">Hello World!</a></li>
+<li><a href="/query.py">演示数据库操作，及基本HTTP数据信息</a></li>
+<li><a href="/redirect.py">演示网页从redirect.py跳转到query.py</a></li>
+</ul><br/><br/>
+<form method='post' action='/query.py/?p1=p1&p2=pp22&p3=ppp333'>
+姓名<input type='text' name="name"><br/>
+年龄<input type='text' name='age'><br/>
+电话<input type='phonenumber' name='phonenumber'/><br/>
+<input type='submit' value='POST方式提交' class=button>
+</form><br/><br/>
+<form method='get' action='/query.py?g1=g1&g2=gg22&g3=ggg333'>
+姓名<input type='text' name="name"><br/>
+年龄<input type='text' name='age'><br/>
+电话<input type='phonenumber' name='phonenumber'><br/>
+<input type='submit' value='GET方式提交' class=button>
+</form>
+</div>
+</body>
+</html>

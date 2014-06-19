@@ -35,7 +35,7 @@ class Animal(object):
  
 cow = Animal('king', 4)  #We make a cow
 dog = Animal('flopp', 4) #We can make many animals
-print('We have 2 animales a cow name %s and dog named %s,both have %s legs' % (cow.name, dog.name, cow.legs))
+print('我们有两个动物， 牛的名字叫  %s ，狗的名字叫  %s, 总共有 %s 条腿.end' % (cow.name, dog.name, cow.legs))
 print(cow)  #here __str__ metod work
  
 #We give food to cow

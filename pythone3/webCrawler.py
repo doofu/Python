@@ -50,8 +50,8 @@ def getImg(html, reg = r'src="(.*?\.jpg)"'):
 if __name__ == "__main__": 
     pageCoding = 'utf-8'        # 要访问的网页的编码方式
 
-    #html = getHtml('http://www.sina.com', pageCoding)
-    html = getHtml('http://www.baidu.com/', pageCoding)
+    #html = getHtml('http://www.sina.com', 'gbk')
+    html = getHtml('http://www.baidu.com/', 'utf-8')
     #html = getHtml('http://python/static/index.html', pageCoding)
     
     # 一下语句在windows的command窗口中运行，有时不能被正确执行

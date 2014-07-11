@@ -14,7 +14,7 @@ def application(environ, start_response):
     connection = connect(user='root', password='root', host='localhost', database='test')
 
     cursor = connection.cursor()
-    cursor.execute("SELECT name FROM nametable ORDER BY name DESC LIMIT 10")
+    cursor.execute("SELECT name FROM Nametable ORDER BY name DESC LIMIT 10")
     
     output = "<html><head><title>Books</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"></head>\n"
     output += "<body>\n"

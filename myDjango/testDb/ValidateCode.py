@@ -2,6 +2,7 @@
 #coding=utf-8
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import platform
 import io
 import os
 
@@ -24,15 +25,18 @@ class ValidateCode:
                         codelen = 4,
                         width = 90,
                         height = 30,
-                        font = '\\font\\elephant.ttf',
+                        font = 'font/elephant.ttf',
                         fontsize = 18,
                         mode = 'RGB'):
         self.charset = charset
         self.codelen = codelen
         self.width = width
         self.height = height
-        # 获得字体文件elephant.ttf的绝对路径
-        self.font = os.path.dirname(__file__) + font
+        # 获得字体文件elephant.ttf的绝对路径，在windows和linux下路径表示方法不同
+        if platform.system() == 'Linux':
+            self.font = os.path.dirname(__file__) + font
+        else:
+            self.font = os.path.dirname(__file__) + font.replace('/', '\\')
         self.fontsize = fontsize
         self.mode = mode
 

@@ -17,7 +17,7 @@ def httpResponse(start_response, output):
     
     output = output.encode(encoding='utf_8')
     
-    response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]  
+    response_headers = [('Content-type', 'text/html'), ('Content-Length', str(len(output)))]  
     start_response(status, response_headers)
     
     return [output]

@@ -25,7 +25,7 @@ class ValidateCode:
                         codelen = 4,
                         width = 90,
                         height = 30,
-                        font = 'font/elephant.ttf',
+                        font = '/font/elephant.ttf',
                         fontsize = 18,
                         mode = 'RGB'):
         self.charset = charset
@@ -33,6 +33,7 @@ class ValidateCode:
         self.width = width
         self.height = height
         # 获得字体文件elephant.ttf的绝对路径，在windows和linux下路径表示方法不同
+        #self.font = '/home/pythonHttp/myDjango/testDb/font/elephant.ttf'
         if platform.system() == 'Linux':
             self.font = os.path.dirname(__file__) + font
         else:
